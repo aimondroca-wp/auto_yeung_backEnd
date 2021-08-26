@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yeung.dao.YeungClientRepairDao">
+    <resultMap id="RM_YeungClientRepair" type="com.yeung.po.YeungClientRepair">
+        <result property="id" column="id"/>
+        <result property="clientId" column="client_id"/>
+        <result property="price" column="price"/>
+        <result property="description" column="description"/>
+        <result property="createTime" column="create_time"/>
+        <result property="timestamp" column="timestamp"/>
+    </resultMap>
+
+    <resultMap id="RM_YeungClientRepairGroup" type="com.yeung.po.YeungClientRepairGroup">
+        <result property="clientId" column="client_id"/>
+        <result property="totalPrice" column="total_price"/>
+        <result property="GroupDate" column="create_time"/>
+        <result property="ids" column="ids"/>
+    </resultMap>
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="yeungClientRepair_columns">
+        <![CDATA[
+		id,client_id,price,description,create_time,timestamp
+	    ]]>
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO yeung_client_repair (
+        id,
+        client_id,
+        price,
+        description,
+        create_time,
+        `timestamp`,
+        is_enable
+        ) VALUES (
+        #{id} ,
+        #{clientId} ,
+        #{price} ,
+        #{description} ,
+        #{createTime},
+        #{timestamp},
+        #{isEnable}
+        )
+
+    </insert>
+
+    <update id="update" >
+        UPDATE yeung_client_repair
+        <set>
+            <if test="@com.yeung.utils.Ognl@isNotEmpty(description)">description = #{description},
+            </if>
+
+            <if test="@com.yeung.utils.Ognl@isNotEmpty(price)">price = #{price},
+            </if>
+        </set>
+
+        WHERE
+        id = #{id}
+        AND is_enable = 1
+
+    </update>
+
+    <delete id="delete">
+        <![CDATA[
+        DELETE FROM yeung_client_repair WHERE
+        id = #{id}
+    ]]>
+    </delete>
+
+    <sql id="yeungClientRepair_findPage_where">
+        <!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+        <where>
+            AND is_enable = 1
+            <if test="@com.yeung.utils.Ognl@isNotEmpty(clientId)">
+                AND client_id = #{clientId}
+            </if>
+
+            <if test="@com.yeung.utils.Ognl@isNotEmpty(ids)">
+                AND id in (#{ids})
+            </if>
+
+            <if test="@com.yeung.utils.Ognl@isNotEmpty(timestamp)">
+                AND `timestamp` = #{timestamp}
+            </if>
+        </where>
+    </sql>
+
+
+    <select id="findNumberByCondition" resultType="long">
+        SELECT count( id ) FROM yeung_client_repair
+        <include refid="yeungClientRepair_findPage_where"/>
+    </select>
+
+
+
+    <select id="findPageBreakByCondition" resultMap="RM_YeungClientRepair">
+        SELECT <include refid="yeungClientRepair_columns" />
+        FROM yeung_client_repair
+        <include refid="yeungClientRepair_findPage_where"/>
+        <if test="@com.yeung.utils.Ognl@isNotEmpty(sortColumns)">
+            ORDER BY ${sortColumns}
+        </if>
+
+    </select>
+
+</mapper>
+

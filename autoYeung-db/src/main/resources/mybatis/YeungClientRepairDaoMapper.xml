@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yeung.dao.YeungClientRepairDao">
+    <select id="findClientRepairByGroup" resultMap="RM_YeungClientRepairGroup">
+        select `client_id`,`create_time`,sum(price) as `total_price`,group_concat(id) as ids from yeung_client_repair
+        where client_id = #{clientId}
+        and is_enable = 1
+        group by create_time
+        order by create_time desc
+    </select>
+
+    <select id="findClientRepairByIds" resultMap="RM_YeungClientRepair">
+        select <include refid="yeungClientRepair_columns" />
+        from yeung_client_repair
+        where is_enable = 1
+        and id in
+        <foreach collection="ids" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+        order by id asc
+    </select>
+
+    <select id="findClientRepairTotalPrice" resultMap="RM_YeungClientRepairGroup">
+        select `client_id`,sum(price) as `total_price`,`timestamp` from yeung_client_repair
+        where client_id = #{clientId}
+        and is_enable = 1
+        group by `timestamp`
+        order by `timestamp` desc
+    </select>
+
+    <update id="updateByTime" >
+        UPDATE yeung_client_repair
+        <set>
+            is_enable = 0,
+        </set>
+
+        WHERE client_id = #{clientId}
+        and timestamp = #{timestamp}
+
+    </update>
+</mapper>

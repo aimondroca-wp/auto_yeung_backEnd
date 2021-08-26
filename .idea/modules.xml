@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/autoYeung.iml" filepath="$PROJECT_DIR$/autoYeung.iml" />
+      <module fileurl="file://$PROJECT_DIR$/autoYeung-db/autoYeung-db.iml" filepath="$PROJECT_DIR$/autoYeung-db/autoYeung-db.iml" />
+      <module fileurl="file://$PROJECT_DIR$/autoYeung-remote-api/autoYeung-remote-api.iml" filepath="$PROJECT_DIR$/autoYeung-remote-api/autoYeung-remote-api.iml" />
+    </modules>
+  </component>
+</project>
