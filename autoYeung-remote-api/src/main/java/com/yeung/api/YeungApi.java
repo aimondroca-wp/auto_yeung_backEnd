@@ -305,4 +305,8 @@ public class YeungApi extends BaseApi{
         return ResponseData.getInstance(StatusCode.SUCCESS);
     }
 
+    @GetMapping("/test/gitchangeuser")
+    public ResponseData gitchangeuser() {
+        return ResponseData.getInstance(StatusCode.SUCCESS);
+    }
 }
