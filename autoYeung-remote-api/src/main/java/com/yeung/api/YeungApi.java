@@ -292,6 +292,7 @@ public class YeungApi extends BaseApi{
 
     @GetMapping("/test/issue")
     public ResponseData issue() {
+        return ResponseData.getInstance(StatusCode.SUCCESS);
     }
 
     @GetMapping("/test/get")
@@ -303,4 +304,5 @@ public class YeungApi extends BaseApi{
     public ResponseData test2() {
         return ResponseData.getInstance(StatusCode.SUCCESS);
     }
+
 }
