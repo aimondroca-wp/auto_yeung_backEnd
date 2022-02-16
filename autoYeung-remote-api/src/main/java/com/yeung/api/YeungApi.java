@@ -310,4 +310,9 @@ public class YeungApi extends BaseApi{
         return ResponseData.getInstance(StatusCode.SUCCESS);
     }
 
+    @GetMapping("/test/get4")
+    public ResponseData test4() {
+        return ResponseData.getInstance(StatusCode.SUCCESS);
+    }
+
 }
