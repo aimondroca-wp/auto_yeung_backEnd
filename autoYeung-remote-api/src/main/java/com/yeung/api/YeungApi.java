@@ -314,6 +314,7 @@ public class YeungApi extends BaseApi{
     public ResponseData test3() {
         int i = 0;
         String first;
+        String second;
         return ResponseData.getInstance(StatusCode.SUCCESS);
     }
 
