@@ -323,7 +323,6 @@ public class YeungApi extends BaseApi{
         String eighth;
         String nineth;
 
-
         return ResponseData.getInstance(StatusCode.SUCCESS);
     }
 
