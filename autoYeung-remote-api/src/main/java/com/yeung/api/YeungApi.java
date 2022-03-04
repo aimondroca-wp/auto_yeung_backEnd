@@ -316,7 +316,6 @@ public class YeungApi extends BaseApi{
         return ResponseData.getInstance(StatusCode.SUCCESS);
     }
 
-
     public ResponseData testRebase(){
         int commit1;
         int commit2;
@@ -324,5 +323,4 @@ public class YeungApi extends BaseApi{
         int commit4;
         return ResponseData.getInstance(StatusCode.SUCCESS);
     }
-
 }
