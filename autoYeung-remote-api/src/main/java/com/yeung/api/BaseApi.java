@@ -11,6 +11,9 @@ public class BaseApi {
      */
     @ExceptionHandler(Exception.class)
     public String exceptionHandler(Exception ex) {
+        int commit1;
+        int commit2;
+        int commit3;
         return "sorry!access error.";
     }
 }
