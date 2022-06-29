@@ -1,13 +1,13 @@
 package com.yeung.api;
 
-import com.bte.exchange.db.base.pager.Pager;
-import com.bte.exchange.db.po.YeungClientInfo;
-import com.bte.exchange.db.po.YeungClientNote;
-import com.bte.exchange.db.po.YeungClientRepair;
-import com.bte.exchange.db.po.YeungClientRepairGroup;
-import com.bte.exchange.db.service.YeungClientInfoService;
-import com.bte.exchange.db.service.YeungClientNoteService;
-import com.bte.exchange.db.service.YeungClientRepairService;
+import com.yeung.base.Pager;
+import com.yeung.po.YeungClientInfo;
+import com.yeung.po.YeungClientNote;
+import com.yeung.po.YeungClientRepair;
+import com.yeung.po.YeungClientRepairGroup;
+import com.yeung.service.YeungClientInfoService;
+import com.yeung.service.YeungClientNoteService;
+import com.yeung.service.YeungClientRepairService;
 import com.yeung.bean.ResponseData;
 import com.yeung.bean.StatusCode;
 import com.yeung.utils.JsonUtils;
@@ -314,6 +314,44 @@ public class YeungApi extends BaseApi{
     public ResponseData test3() {
         int i = 0;
         return ResponseData.getInstance(StatusCode.SUCCESS);
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        Thread thread = new Thread(new InterruptedSleepingRunner());
+        thread.start();
+        // Giving 10 seconds to finish the job.
+        Thread.sleep(10000);
+        // Let me interrupt
+        thread.interrupt();
+    }
+
+    public static class InterruptedSleepingRunner implements Runnable {
+        @Override
+        public void run() {
+            doAPseudoHeavyWeightJob();
+        }
+
+        private void doAPseudoHeavyWeightJob() {
+            for (int i = 0; i < Integer.MAX_VALUE; i++) {
+                // You are kidding me
+                System.out.println(i + " " + i * 2);
+                // Let me sleep <evil grin>
+                if (Thread.currentThread().isInterrupted()) {
+                    System.out.println("Thread interrupted\n Exiting...");
+                    break;
+                } else {
+                    sleepBabySleep();
+                }
+            }
+        }
+
+        protected void sleepBabySleep() {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
     }
 
 }
