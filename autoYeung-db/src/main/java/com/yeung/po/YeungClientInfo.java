@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class YeungClientInfo extends BaseModel {
     private static final long serialVersionUID = 5454155825314635342L;
-
     private int id;
     private String name;
     private String address;
