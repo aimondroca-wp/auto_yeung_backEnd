@@ -19,7 +19,6 @@ public class YeungClientInfo extends BaseModel {
     private int isEnable;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private java.util.Date createTime;
-
     public int getId() {
         return id;
     }
